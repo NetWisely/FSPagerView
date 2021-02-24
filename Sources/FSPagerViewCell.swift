@@ -43,6 +43,9 @@ open class FSPagerViewCell: UICollectionViewCell {
         _imageView = imageView
         return imageView
     }
+
+	@objc
+	open var showHighlight: Bool = true
     
     fileprivate weak var _textLabel: UILabel?
     fileprivate weak var _imageView: UIImageView?
@@ -67,6 +70,7 @@ open class FSPagerViewCell: UICollectionViewCell {
     open override var isHighlighted: Bool {
         set {
             super.isHighlighted = newValue
+			guard self.showHighlight else { return }
             if newValue {
                 self.selectedForegroundView?.layer.backgroundColor = self.selectionColor.cgColor
             } else if !super.isSelected {
@@ -81,6 +85,7 @@ open class FSPagerViewCell: UICollectionViewCell {
     open override var isSelected: Bool {
         set {
             super.isSelected = newValue
+			guard self.showHighlight else { return }
             self.selectedForegroundView?.layer.backgroundColor = newValue ? self.selectionColor.cgColor : UIColor.clear.cgColor
         }
         get {
